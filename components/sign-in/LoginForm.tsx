@@ -1,23 +1,26 @@
-// import { signIn } from '@/services/Auth'
+import { signInProxy } from '@/services/auth'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Button from '../Button'
 import TextInput from '../TextInput'
 
 export default function LoginForm () {
+  const router = useRouter()
+
   const [userName, setUserName] = useState<string>('')
   const editUserName = (userName: string) => setUserName(userName)
 
   const [password, setPassword] = useState<string>('')
   const editPassword = (password: string) => setPassword(password)
 
-  const login = async (event: React.SyntheticEvent) => {
-    // event.preventDefault()
-    // const token = await signIn(userName, password)
-    // console.log(token)
+  const submit = async (event: React.SyntheticEvent) => {
+    event.preventDefault()
+    const res = await signInProxy({ userName, password }).catch(e => e.response)
+    if (res.status === 200) router.push('/movie/cleo-from-5-to-7')
   }
 
   return (
-    <form className='flex flex-col w-full' onSubmit={login}>
+    <form className='flex flex-col w-full' onSubmit={submit}>
       <TextInput
         className='mb-4'
         label='Username'
