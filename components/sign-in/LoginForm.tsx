@@ -1,6 +1,7 @@
 import { signInProxy } from '@/services/auth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { StatusCodes } from 'http-status-codes'
 import Button from '../Button'
 import TextInput from '../TextInput'
 
@@ -16,7 +17,7 @@ export default function LoginForm () {
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     const res = await signInProxy({ userName, password }).catch(e => e.response)
-    if (res.status === 200) router.push('/movie/cleo-from-5-to-7')
+    if (res.status === StatusCodes.OK) router.push('/movie/cleo-from-5-to-7')
   }
 
   return (
