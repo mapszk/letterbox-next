@@ -10,5 +10,7 @@ export interface MovieDetails {
   updatedAt: string,
   likes: number,
   watchlist: number,
-  reviews: number
+  reviews: number,
+  isLiked: boolean,
+  isInWatchlist: boolean
 }
