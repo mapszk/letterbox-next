@@ -8,7 +8,7 @@ export default async function signInHandler (req: NextApiRequest, res: NextApiRe
   const response = await signIn({ userName, password }).catch(e => e.response)
 
   if (response.status === StatusCodes.OK) {
-    res.setHeader('Set-Cookie', serialize('accessToken', response.data.accessToken, {
+    res.setHeader('Set-Cookie', serialize('user', response.data, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',

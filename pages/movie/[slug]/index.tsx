@@ -4,29 +4,30 @@ import { getMovie } from '@/services/movies'
 import { StatusCodes } from 'http-status-codes/build/cjs/status-codes'
 import { GetServerSidePropsContext } from 'next'
 import Header from '@/components/movie/Header'
+import { User } from '@/interfaces/User'
 
 interface PageProps {
   movie: MovieDetails,
-  accessToken: string
+  user: User
 }
 
-export default function Index ({ movie, accessToken }: PageProps) {
+export default function Index ({ movie, user }: PageProps) {
   return (
-    <Container className='mt-5'>
-      <Header movie={movie} accessToken={accessToken} />
+    <Container>
+      <Header movie={movie} user={user} />
     </Container>
   )
 }
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const slug = context.query.slug as string
-  const { accessToken } = context.req.cookies
-  const response = await getMovie({ slug, accessToken }).catch(e => e.response)
+  const user = JSON.parse(context.req.cookies.user as string)
+  const response = await getMovie({ slug, accessToken: user.accessToken }).catch(e => e.response)
   if (response.status === StatusCodes.OK) {
     return {
       props: {
         movie: response.data,
-        accessToken
+        user
       }
     }
   } else if (response.status === StatusCodes.NOT_FOUND) {
