@@ -8,3 +8,6 @@ export const signIn = ({ userName, password }: {userName: string, password: stri
 
 export const signInProxy = ({ userName, password }: {userName: string, password: string}) =>
   axios.post('/api/auth/sign-in', { userName, password })
+
+export const signUp = ({ userName, password, email }: {userName: string, password: string, email: string}) =>
+  api.post(`${baseEndpoint}/sign-up`, { userName, email, password })
