@@ -3,7 +3,7 @@ import RegisterForm from '@/components/sign-up/RegisterForm'
 import Head from 'next/head'
 import Link from 'next/link'
 
-export default function SignIn () {
+export default function SignUp () {
   return (
     <>
       <Head>
