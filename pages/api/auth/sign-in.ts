@@ -6,9 +6,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export default async function signInHandler (req: NextApiRequest, res: NextApiResponse) {
   const { userName, password } = req.body
   const response = await signIn({ userName, password }).catch(e => e.response)
-
   if (response.status === StatusCodes.OK) {
-    res.setHeader('Set-Cookie', serialize('accessToken', response.data.accessToken, {
+    res.setHeader('Set-Cookie', serialize('X-Access-Token', response.data.accessToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
@@ -16,6 +15,5 @@ export default async function signInHandler (req: NextApiRequest, res: NextApiRe
       path: '/'
     }))
   }
-
   res.status(response.status).json(response.data)
 }

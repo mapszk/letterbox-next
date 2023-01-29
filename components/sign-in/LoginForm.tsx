@@ -17,7 +17,7 @@ export default function LoginForm () {
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     const res = await signInProxy({ userName, password }).catch(e => e.response)
-    if (res.status === StatusCodes.OK) router.push('/movie/cleo-from-5-to-7')
+    if (res.status === StatusCodes.OK) router.push('/')
   }
 
   return (
