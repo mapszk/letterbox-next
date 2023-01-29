@@ -4,23 +4,21 @@ import ReviewIcon from '@heroicons/react/24/solid/ChatBubbleLeftIcon.js'
 import WatchlistIcon from '@heroicons/react/24/solid/ClockIcon.js'
 import { MovieDetails } from '../../interfaces/Movie'
 import { addToWatchlist, dislikeMovie, likeMovie, removeFromWatchlist } from '@/services/movies'
-import { User } from '@/interfaces/User'
-
 interface Props {
-  movie: MovieDetails,
-  user: User
+  movie: MovieDetails
 }
 
-export default function Header ({ movie, user }: Props) {
+export default function Header ({ movie }: Props) {
   const [isLiked, setIsLiked] = useState<boolean>(movie.isLiked)
   const [likesCount, setLikesCount] = useState<number>(movie.likes)
+
   const handleLike = async () => {
     if (isLiked) {
-      await dislikeMovie({ slug: movie.slug, accessToken: user.accessToken }).catch(e => e.response)
+      await dislikeMovie(movie.slug).catch(e => e.response)
       setIsLiked(false)
       setLikesCount(likes => likes - 1)
     } else {
-      await likeMovie({ slug: movie.slug, accessToken: user.accessToken }).catch(e => e.response)
+      await likeMovie(movie.slug).catch(e => e.response)
       setIsLiked(true)
       setLikesCount(likes => likes + 1)
     }
@@ -30,11 +28,11 @@ export default function Header ({ movie, user }: Props) {
   const [watchlistCount, setWatchlistCount] = useState<number>(movie.watchlist)
   const handleWatchlist = async () => {
     if (isInWatchlist) {
-      await removeFromWatchlist({ slug: movie.slug, accessToken: user.accessToken }).catch(e => e.response)
+      await removeFromWatchlist(movie.slug).catch(e => e.response)
       setIsInWatchlist(false)
       setWatchlistCount(likes => likes - 1)
     } else {
-      await addToWatchlist({ slug: movie.slug, accessToken: user.accessToken }).catch(e => e.response)
+      await addToWatchlist(movie.slug).catch(e => e.response)
       setIsInWatchlist(true)
       setWatchlistCount(likes => likes + 1)
     }

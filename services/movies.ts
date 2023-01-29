@@ -1,18 +1,19 @@
+import { AxiosRequestConfig } from 'axios'
 import { api } from './api'
 
 const baseEndpoint : string = 'api/v1/movies'
 
-export const getMovie = ({ slug, accessToken }: {slug: string, accessToken?: string}) =>
-  api.get(`${baseEndpoint}/${slug}`, { headers: { Authorization: `Bearer ${accessToken}` } })
+export const getMovie = (slug: string, config?: AxiosRequestConfig) =>
+  api.get(`${baseEndpoint}/${slug}`, config)
 
-export const likeMovie = ({ slug, accessToken }: {slug: string, accessToken?: string}) =>
-  api.post(`${baseEndpoint}/${slug}/like`, {}, { headers: { Authorization: `Bearer ${accessToken}` } })
+export const likeMovie = (slug: string, config?: AxiosRequestConfig) =>
+  api.post(`${baseEndpoint}/${slug}/like`, {}, config)
 
-export const dislikeMovie = ({ slug, accessToken }: {slug: string, accessToken?: string}) =>
-  api.post(`${baseEndpoint}/${slug}/remove-like`, {}, { headers: { Authorization: `Bearer ${accessToken}` } })
+export const dislikeMovie = (slug: string, config?: AxiosRequestConfig) =>
+  api.post(`${baseEndpoint}/${slug}/remove-like`, {}, config)
 
-export const addToWatchlist = ({ slug, accessToken }: {slug: string, accessToken?: string}) =>
-  api.post(`${baseEndpoint}/${slug}/add-to-watchlist`, {}, { headers: { Authorization: `Bearer ${accessToken}` } })
+export const addToWatchlist = (slug: string, config?: AxiosRequestConfig) =>
+  api.post(`${baseEndpoint}/${slug}/add-to-watchlist`, {}, config)
 
-export const removeFromWatchlist = ({ slug, accessToken }: {slug: string, accessToken?: string}) =>
-  api.post(`${baseEndpoint}/${slug}/remove-from-watchlist`, {}, { headers: { Authorization: `Bearer ${accessToken}` } })
+export const removeFromWatchlist = (slug: string, config?: AxiosRequestConfig) =>
+  api.post(`${baseEndpoint}/${slug}/remove-from-watchlist`, {}, config)
