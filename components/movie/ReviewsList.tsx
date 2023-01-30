@@ -36,11 +36,11 @@ export default function ReviewsList ({ paginatedReviews }: Props) {
   }, [pageNumber])
 
   return (
-    <section className='flex flex-col items-center w-full'>
+    <section className='flex flex-col w-full'>
       {reviews.map((review: IReview, index: number) =>
         <Review className={index < reviews.length ? 'mb-2' : ''} review={review} key={review.id} />
       )}
-      {reviews.length < paginatedReviews.totalCount && <Button onClick={incrementPageNumber} loading={loading} className='mt-2 max-w-xs'>Load more</Button>}
+      {reviews.length < paginatedReviews.totalCount && <Button onClick={incrementPageNumber} loading={loading} className='mt-2 ml-auto md:max-w-xs'>Load more</Button>}
     </section>
   )
 }
