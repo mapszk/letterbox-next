@@ -8,10 +8,11 @@ import Button from '../Button'
 import Review from './Review'
 
 interface Props {
-  paginatedReviews: IPaginatedList<IReview>
+  paginatedReviews: IPaginatedList<IReview>,
+  className?: string
 }
 
-export default function ReviewsList ({ paginatedReviews }: Props) {
+export default function ReviewsList ({ paginatedReviews, className }: Props) {
   const router = useRouter()
   const [pageNumber, setPageNumber] = useState<number>(0)
   const [reviews, setReviews] = useState<IReview[]>(paginatedReviews.data)
@@ -36,11 +37,11 @@ export default function ReviewsList ({ paginatedReviews }: Props) {
   }, [pageNumber])
 
   return (
-    <section className='flex flex-col w-full'>
+    <section className={`flex flex-col w-full ${className}`}>
       {reviews.map((review: IReview, index: number) =>
         <Review className={index < reviews.length ? 'mb-2' : ''} review={review} key={review.id} />
       )}
-      {reviews.length < paginatedReviews.totalCount && <Button onClick={incrementPageNumber} loading={loading} className='mt-2 ml-auto md:max-w-xs'>Load more</Button>}
+      {reviews.length < paginatedReviews.totalCount && <Button onClick={incrementPageNumber} loading={loading} className='mt-2 ml-auto md:w-32'>Load more</Button>}
     </section>
   )
 }

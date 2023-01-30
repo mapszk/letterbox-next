@@ -8,6 +8,7 @@ import { getReviews } from '@/services/reviews'
 import { IPaginatedList } from '@/interfaces/Paginated'
 import { IReview } from '@/interfaces/Reviews'
 import ReviewsList from '@/components/movie/ReviewsList'
+import CreateReview from '@/components/movie/CreateReview'
 
 interface PageProps {
   movie: IMovieDetails,
@@ -24,7 +25,8 @@ export default function Movie ({ movie, reviews }: PageProps) {
         </div>
         <p className='text-slate-200 mt-5 mb-5'>{movie.description}</p>
         <h2 className='text-white font-semibold text-slate-500 text-xl mb-2 mt-4'>Reviews</h2>
-        <ReviewsList paginatedReviews={reviews} />
+        <CreateReview />
+        <ReviewsList className='mt-4' paginatedReviews={reviews} />
       </div>
 
       <div className='hidden md:flex flex-row'>
@@ -33,7 +35,8 @@ export default function Movie ({ movie, reviews }: PageProps) {
           <MovieDetails movie={movie} />
           <p className='text-slate-200 mt-5 mb-5'>{movie.description}</p>
           <h2 className='text-white font-semibold text-slate-500 text-xl mb-2 mt-4'>Reviews</h2>
-          <ReviewsList paginatedReviews={reviews} />
+          <CreateReview />
+          <ReviewsList className='mt-4' paginatedReviews={reviews} />
         </section>
       </div>
     </Container>

@@ -17,3 +17,6 @@ export const addToWatchlist = (slug: string, config?: AxiosRequestConfig) =>
 
 export const removeFromWatchlist = (slug: string, config?: AxiosRequestConfig) =>
   api.post(`${baseEndpoint}/${slug}/remove-from-watchlist`, {}, config)
+
+export const addReview = ({ slug, content }: {slug: string, content: string}, config?: AxiosRequestConfig) =>
+  api.post(`${baseEndpoint}/${slug}/review`, { content }, config)
