@@ -1,33 +1,46 @@
 import Container from '@/components/Container'
-import { MovieDetails } from '@/interfaces/Movie'
+import { IMovieDetails } from '@/interfaces/Movie'
 import { getMovie } from '@/services/movies'
 import { StatusCodes } from 'http-status-codes/build/cjs/status-codes'
 import { GetServerSidePropsContext } from 'next'
 import Header from '@/components/movie/Header'
+import { getReviews } from '@/services/reviews'
+import { IPaginatedList } from '@/interfaces/Paginated'
+import { IReview } from '@/interfaces/Reviews'
+import ReviewsList from '@/components/movie/ReviewsList'
 
 interface PageProps {
-  movie: MovieDetails
+  movie: IMovieDetails,
+  reviews: IPaginatedList<IReview>
 }
 
-export default function Movie ({ movie }: PageProps) {
+export default function Movie ({ movie, reviews }: PageProps) {
   return (
     <Container>
       <Header movie={movie} />
+      <ReviewsList paginatedReviews={reviews} />
     </Container>
   )
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const response = await getMovie(ctx.query.slug as string, { headers: { cookie: ctx.req.headers.cookie } })
+  const movie = await getMovie(ctx.query.slug as string, { headers: { cookie: ctx.req.headers.cookie } })
     .catch(e => e.response)
-  if (response.status === StatusCodes.OK) {
+  if (movie.status === StatusCodes.NOT_FOUND) {
     return {
-      props: {
-        movie: response.data
-      }
+      notFound: true
     }
   }
+
+  const reviews = await getReviews(
+    { movieSlug: movie.data.slug },
+    { headers: { cookie: ctx.req.headers.cookie } }
+  ).catch(e => e.response)
+
   return {
-    notFound: true
+    props: {
+      movie: movie.data,
+      reviews: reviews.data
+    }
   }
 }
