@@ -36,12 +36,22 @@ export default function ReviewsList ({ paginatedReviews, className }: Props) {
     loadMore()
   }, [pageNumber])
 
-  return (
-    <section className={`flex flex-col w-full ${className}`}>
-      {reviews.map((review: IReview, index: number) =>
-        <Review className={index < reviews.length ? 'mb-2' : ''} review={review} key={review.id} />
-      )}
-      {reviews.length < paginatedReviews.totalCount && <Button onClick={incrementPageNumber} loading={loading} className='mt-2 ml-auto md:w-32'>Load more</Button>}
-    </section>
-  )
+  if (!reviews.length) {
+    return (
+      <section className='flex flex-row bg-slate-800 rounded-md p-5 mt-4 place-center'>
+        <h2 className='text-slate-500'>
+          There are no reviews yet, write yours!
+        </h2>
+      </section>
+    )
+  } else {
+    return (
+      <section className={`flex flex-col w-full ${className}`}>
+        {reviews.map((review: IReview, index: number) =>
+          <Review className={index < reviews.length ? 'mb-2' : ''} review={review} key={review.id} />
+        )}
+        {reviews.length < paginatedReviews.totalCount && <Button onClick={incrementPageNumber} loading={loading} className='mt-2 ml-auto md:w-32'>Load more</Button>}
+      </section>
+    )
+  }
 }

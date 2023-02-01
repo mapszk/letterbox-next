@@ -19,7 +19,7 @@ export default function CreateReview () {
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col w-full'>
       <textarea
         onChange={handleChange}
         value={review}

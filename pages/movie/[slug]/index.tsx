@@ -20,7 +20,7 @@ export default function Movie ({ movie, reviews }: PageProps) {
     <Container>
       <div className='md:hidden mb-5'>
         <div className='flex flex-row'>
-          <img className='w-24 self-start rounded-lg mr-2' src={movie.cover} alt={`Movie poster of ${movie.name}`} />
+          <img className='w-24 h-36 self-start rounded-lg mr-2' src={movie.cover} alt={`Movie poster of ${movie.name}`} />
           <MovieDetails className='p-2' movie={movie} />
         </div>
         <p className='text-slate-200 mt-5 mb-5'>{movie.description}</p>
@@ -30,8 +30,8 @@ export default function Movie ({ movie, reviews }: PageProps) {
       </div>
 
       <div className='hidden md:flex flex-row'>
-        <img className='w-56 self-start rounded-lg mr-2' src={movie.cover} alt={`Movie poster of ${movie.name}`} />
-        <section className='p-4'>
+        <img className='w-56 h-80 self-start rounded-lg mr-2' src={movie.cover} alt={`Movie poster of ${movie.name}`} />
+        <section className='w-full p-4'>
           <MovieDetails movie={movie} />
           <p className='text-slate-200 mt-5 mb-5'>{movie.description}</p>
           <h2 className='text-white font-semibold text-slate-500 text-xl mb-2 mt-4'>Reviews</h2>

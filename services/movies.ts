@@ -6,6 +6,9 @@ const baseEndpoint : string = 'api/v1/movies'
 export const getMovie = (slug: string, config?: AxiosRequestConfig) =>
   api.get(`${baseEndpoint}/${slug}`, config)
 
+export const getHomeMovies = (config?: AxiosRequestConfig) =>
+  api.get(`${baseEndpoint}/get-all-paginated`, { params: { pageSize: 5, pageNumber: 0 }, ...config })
+
 export const likeMovie = (slug: string, config?: AxiosRequestConfig) =>
   api.post(`${baseEndpoint}/${slug}/like`, {}, config)
 
