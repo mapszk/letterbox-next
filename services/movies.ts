@@ -9,6 +9,14 @@ export const getMovie = (slug: string, config?: AxiosRequestConfig) =>
 export const getHomeMovies = (config?: AxiosRequestConfig) =>
   api.get(`${baseEndpoint}/get-all-paginated`, { params: { pageSize: 5, pageNumber: 0 }, ...config })
 
+interface PaginatedMovies {
+  name?: string
+  pageNumber?: number,
+  pageSize?: number,
+}
+export const getMoviesPaginated = ({ name, pageNumber = 0, pageSize = 300 }: PaginatedMovies, config?: AxiosRequestConfig) =>
+  api.get(`${baseEndpoint}/get-all-paginated`, { params: { pageSize, pageNumber, name }, ...config })
+
 export const likeMovie = (slug: string, config?: AxiosRequestConfig) =>
   api.post(`${baseEndpoint}/${slug}/like`, {}, config)
 
