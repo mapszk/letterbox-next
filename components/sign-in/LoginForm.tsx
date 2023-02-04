@@ -17,7 +17,9 @@ export default function LoginForm () {
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault()
     const res = await signInProxy({ userName, password }).catch(e => e.response)
-    if (res.status === StatusCodes.OK) router.push('/')
+    if (res.status === StatusCodes.OK) {
+      router.push('/feed')
+    }
   }
 
   return (

@@ -6,9 +6,9 @@ interface Props {
   className?: string
 }
 
-export default function MovieCard ({ movie, className = '' }: Props) {
+export default function MovieCard ({ movie }: Props) {
   return (
-    <Link href={`movie/${movie.slug}`} className={`h-32 sm:h-52 lg:h-72 w-full ${className}`}>
+    <Link href={`movie/${movie.slug}`}>
       <img className='rounded-lg object-cover h-full w-full' src={movie.cover} alt={`Movie poster of ${movie.name}`} />
     </Link>
   )

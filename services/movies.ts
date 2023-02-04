@@ -7,7 +7,7 @@ export const getMovie = (slug: string, config?: AxiosRequestConfig) =>
   api.get(`${baseEndpoint}/${slug}`, config)
 
 export const getHomeMovies = (config?: AxiosRequestConfig) =>
-  api.get(`${baseEndpoint}/get-all-paginated`, { params: { pageSize: 5, pageNumber: 0 }, ...config })
+  api.get(`${baseEndpoint}/get-all-paginated`, { params: { pageSize: 6, pageNumber: 0 }, ...config })
 
 interface PaginatedMovies {
   name?: string

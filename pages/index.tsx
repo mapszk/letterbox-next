@@ -1,38 +1,38 @@
-import { GetServerSidePropsContext } from 'next'
-// import styles from '@/styles/home.module.css'
+import Button from '@/components/Button'
 import Container from '@/components/Container'
-import { getHomeMovies } from '@/services/movies'
-import { IPaginatedList } from '@/interfaces/Paginated'
-import { IMovie } from '@/interfaces/Movie'
-import MovieCard from '@/components/movie/MovieCard'
+import Head from 'next/head'
+import Link from 'next/link'
 
-interface PageProps {
-  movies: IPaginatedList<IMovie>
-}
-
-export default function Home ({ movies }: PageProps) {
+export default function Welcome () {
   return (
-    <Container>
-      <h1 className='text-4xl font-semibold text-white mb-5'>Latest movies</h1>
-      <section className='sm:hidden'>
-        <MovieCard movie={movies.data[0]} />
-        <div className='flex flex-row gap-2 mt-4'>
-          {movies.data.slice(1).map(movie => <MovieCard className='h-24' movie={movie} key={movie.id} />)}
+    <>
+      <Head>
+        <title>Letterbox</title>
+      </Head>
+      <img src='/landing-bg.png' className='opacity-20 absolute w-screen h-screen object-cover -z-10' />
+      <Container>
+        <div className='flex flex-col justify-center items-center h-screen'>
+          <div className='flex flex-col items-center mb-12'>
+            <img src='/logo.png' alt='Logo' className='w-48 mb-4' />
+            <h2 className='text-white text-2xl font-bold'>Letterbox</h2>
+          </div>
+          <div className='flex flex-col items-center'>
+            <h4 className='text-3xl font-bold text-white text-center mb-9'>
+              Track films you’ve watched. <br />
+              Save those you want to see. <br />
+              Tell your friends what’s good.
+            </h4>
+            <div className='flex flex-col gap-4 w-48'>
+              <Link href='/sign-up'>
+                <Button>Create account</Button>
+              </Link>
+              <Link href='/sign-in'>
+                <Button secondary>Sign in</Button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </section>
-      <section className='hidden sm:flex flex-row mt-5 gap-4'>
-        {movies.data.map(movie => <MovieCard movie={movie} key={movie.id} />)}
-      </section>
-    </Container>
+      </Container>
+    </>
   )
-}
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const movies = await getHomeMovies({ headers: { cookie: ctx.req?.headers?.cookie } }).catch(e => e.response)
-
-  return {
-    props: {
-      movies: movies.data
-    }
-  }
 }

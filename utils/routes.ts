@@ -1,5 +1,11 @@
 export const withoutNavRoutes = [
-  '/welcome',
+  '/',
   '/sign-in',
   '/sign-up'
+]
+
+export const privateRoutes = [
+  '/feed',
+  '/movie',
+  '/search'
 ]
